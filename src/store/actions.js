@@ -16,12 +16,14 @@ export const fetchData = (category) => {
         return resData;
         }
 
+        dispatch(slicerAction.setIsLoading());
         try {
             const data = await fetchCategory(category);
             dispatch(slicerAction.setData({data}));
             dispatch(slicerAction.getPagination(0));
         } catch (error) {
-            console.error(error);
+            dispatch(slicerAction.setError(error.message));
         }
+        dispatch(slicerAction.setIsLoading());
     }
 }

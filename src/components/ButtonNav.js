@@ -1,14 +1,10 @@
-/* eslint-disable semi */
-/* eslint-disable keyword-spacing */
-/* eslint-disable curly */
-/* eslint-disable prettier/prettier */
 /* eslint-disable react/react-in-jsx-scope */
-// component to set position of the two main component - ImageGrid abd ButtonNav
-
-import {Pressable, StyleSheet, View, Modal, Text, TouchableWithoutFeedback} from 'react-native';
+/* eslint-disable prettier/prettier */
+import { StyleSheet, View, Modal, Text, TouchableWithoutFeedback} from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { slicerAction } from '../store/slicer';
 import { useState } from 'react';
+import CustomButton from './CustomButton';
 
 const ButtonNav = ({onCategoryChange}) => {
 
@@ -22,14 +18,14 @@ const ButtonNav = ({onCategoryChange}) => {
 
   //dispatch getPagination action and check the array boundreys before dispatch
   const handlePerv = () => {
-    if(currentIndex - 9 >= 0)
-      dispatch(slicerAction.getPagination(-9));
-  }
+    if (currentIndex - 9 >= 0)
+      {dispatch(slicerAction.getPagination(-9));}
+  };
 
   const handleNext = () => {
     if (currentIndex + 9 < maxSize)
-      dispatch(slicerAction.getPagination(9));
-  }
+      {dispatch(slicerAction.getPagination(9));}
+  };
 
   //on selecten new category dispatch to set new data
   const handleSelectCategory = (selectedCategory) => {
@@ -40,15 +36,9 @@ const ButtonNav = ({onCategoryChange}) => {
   return (
     <View style={style.buttonsView}>
       <View style={style.buttonContainer}>
-        <Pressable style={style.button} onPress={handlePerv}>
-          <Text style={style.buttonText}>Perv</Text>
-        </Pressable>
-        <Pressable style={style.button} onPress={() => setModalVisible(true)}>
-          <Text style={style.buttonText}>Select Category</Text>
-        </Pressable>
-        <Pressable style={style.button} onPress={handleNext}>
-          <Text style={style.buttonText}>Next</Text>
-        </Pressable>
+        <CustomButton styleText={style.buttonText} styleButton={style.button} text="Perv" handler={handlePerv} />
+        <CustomButton styleText={style.buttonText} styleButton={style.button} text="Select Category" handler={() => setModalVisible(true)} />
+        <CustomButton styleText={style.buttonText} styleButton={style.button} text="Next" handler={handleNext} />
       </View>
 
       <Modal
@@ -63,21 +53,11 @@ const ButtonNav = ({onCategoryChange}) => {
               <View style={style.modalView}>
                 <Text style={style.modalTitle}>Select Category</Text>
                 <View style={style.modalButtonContainer}>
-                  <Pressable style={style.modalButton} onPress={() => handleSelectCategory('sports')}>
-                    <Text style={style.buttonText}>Sports</Text>
-                  </Pressable>
-                  <Pressable style={style.modalButton} onPress={() => handleSelectCategory('animals')}>
-                    <Text style={style.buttonText}>Animals</Text>
-                  </Pressable>
-                  <Pressable style={style.modalButton} onPress={() => handleSelectCategory('work')}>
-                    <Text style={style.buttonText}>Work</Text>
-                  </Pressable>
-                  <Pressable style={style.modalButton} onPress={() => handleSelectCategory('food')}>
-                    <Text style={style.buttonText}>Food</Text>
-                  </Pressable>
-                  <Pressable style={style.modalButton} onPress={() => setModalVisible(!modalVisible)}>
-                    <Text style={style.buttonText}>Close</Text>
-                  </Pressable>
+                <CustomButton text="Sports" styleText={style.buttonText} styleButton={style.modalButton} handler={() => handleSelectCategory('sports')} />
+                <CustomButton text="Animals" styleText={style.buttonText} styleButton={style.modalButton} handler={() => handleSelectCategory('animals')} />
+                <CustomButton text="Work" styleText={style.buttonText} styleButton={style.modalButton} handler={() => handleSelectCategory('work')} />
+                <CustomButton text="Food" styleText={style.buttonText} styleButton={style.modalButton} handler={() => handleSelectCategory('food')} />
+                <CustomButton text="Close" styleText={style.buttonText} styleButton={style.modalButton} handler={() => setModalVisible(!modalVisible)} />
                 </View>
               </View>
             </TouchableWithoutFeedback>
@@ -97,18 +77,6 @@ const style = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: 10,
-  },
-  button: {
-    backgroundColor: '#2196F3',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-    marginHorizontal: 5,
-  },
-  buttonText: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
   },
   modalOverlay: {
     flex: 1,
@@ -146,7 +114,19 @@ const style = StyleSheet.create({
     paddingHorizontal: 20,
     borderRadius: 5,
     marginVertical: 5,
-    width: '80%',
+    width: 100,
+  },
+  button: {
+    backgroundColor: '#2196F3',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    marginHorizontal: 5,
+  },
+  buttonText: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 });
 

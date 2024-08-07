@@ -3,8 +3,9 @@
 /* eslint-disable react/react-in-jsx-scope */
 
 // This  component disaplay single picture and it details
-import { TouchableOpacity, Image, StyleSheet, View, Text, Modal, Pressable } from "react-native";
+import { TouchableOpacity, Image, StyleSheet, View, Text, Modal } from "react-native";
 import { useState } from 'react';
+import CustomButton from "./CustomButton";
 
 const ImageItem = (props) => {
     const [modalVisible, setModalVisible] = useState(false);
@@ -35,9 +36,7 @@ const ImageItem = (props) => {
                         <Text>By: {props.item.user}</Text>
                         <Text>Image size: {props.item.imageHeight} x {props.item.imageWidth}</Text>
                         <Text>Likes: {props.item.likes}</Text>
-                        <Pressable style={styles.closeButton} onPress={() => setModalVisible(!modalVisible)}>
-                            <Text style={styles.closeButtonText}>Close</Text>
-                        </Pressable>
+                        <CustomButton text="Close" styleText={styles.closeButtonText} styleButton={styles.closeButton} handler={() => setModalVisible(!modalVisible)} />
                     </View>
                 </View>
             </Modal>
@@ -52,7 +51,6 @@ const styles = StyleSheet.create({
         padding: 10,
         margin: 10,
         borderRadius: 8,
-        elevation: 4,
         backgroundColor: 'white',
         shadowColor: 'black',
         shadowOpacity: 0.25,

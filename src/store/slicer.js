@@ -6,6 +6,11 @@ const initialState = {
   items: [],
   currentIndex: 0,
   data: [],
+  isLoading: false,
+  error: {
+    isError: false,
+    message: '',
+  },
 };
 
 const slicer = createSlice({
@@ -21,6 +26,15 @@ const slicer = createSlice({
     getPagination(state,action) {
       state.currentIndex += action.payload;
       state.items = state.data.slice(state.currentIndex, state.currentIndex + 9);
+    },
+    //set loading when fetching data
+    setIsLoading(state) {
+      state.isLoading = !state.isLoading;
+    },
+    //set error and error message
+    setError(state,action) {
+      state.error.isError = !state.error.isError;
+      state.error.isError ? state.error.message = action.payload : state.error.message = action.payloadstate.error.message = '';
     },
   },
 });
